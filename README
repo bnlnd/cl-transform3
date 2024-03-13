@@ -1,0 +1,32 @@
+transform3: basic 3D math
+
+(xf3:compose
+ (xf3:make-point 0.0d0 0.0d0 0.0d0)
+ (xf3:rotate-y (/ pi 2))
+ (xf3:look-at (xf3:look-at #(2.0d0 1.0d0 2.0d0)
+			   #(0.0d0 0.0d0 0.0d0)
+			   #(0.0d0 1.0d0 0.0d0))
+	      (xf3:make-point 0.0d0 0.0d0 0.0d0)
+	      (xf3:make-point 0.0d0 1.0d0 0.0d0))
+ (xf3:perspective (/ pi 2) 16/9 0.01d0 100.0d0))
+
+;; => #(0.0d0 0.0d0 2.9805980598059807d0 3.0d0)
+
+Intended for use with OpenGL. Developed for, and alongside,  my personal
+projects. The interface will change to meet my needs until the first release.
+
+Supplying m will fill m instead of creating a new matrix.
+	
+xf3:multiply a b                    => a x b
+xf3:make-point x y z                => point
+xf3:move point          &optional m => matrix
+xf3:move* x y z         &optional m => matrix
+xf3:rotate-x theta      &optional m => matrix
+xf3:rotate-y theta      &optional m => matrix
+xf3:rotate-z theta      &optional m => matrix
+xf3:scale x y z         &optional m => matrix
+	
+xf3:perspective fov aspect aspect znear zfar &optional m => matrix
+xf3:look-at here there up &optional m => matrix
+xf3:transform-point point matrix &optional new => point*matrix
+xf3:compose point &rest matrices => point*matrices
